@@ -1,56 +1,99 @@
-# .gitignore file created for free with Tower (https://www.git-tower.com/)
-# For suggestions or improvements please contact us using support@git-tower.com
-# Generated on 2026-03-11
-# Includes: csharp, vscode
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
 
-### Universal ###
-# Common files that should be ignored in all projects
-
-# Logs
-*.log
-# Temporary files
-*.tmp
-*~
-
-*.bak
-# Environment files (containing secrets, API keys, credentials)
-.env
-*.env
-.env.*
-
-# Local configuration that shouldn't be shared
-*.local
-
-### Csharp ###
-# csharp specific files
-
-bin/
-obj/
-*.user
-*.suo
-
-### Vscode ###
-# Visual Studio Code editor settings and workspace files
+# Visual Studio cache/options
+.vs/
 
 # Visual Studio Code
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-
-!.vscode/extensions.json
-!.vscode/*.code-snippets
-.history/
-*.vsix
-.ionide
-
-.vs/
+.vscode/
 *.code-workspace
-.vscode-test
-.vscodeignore
-.vscode/chrome
 
-.vscode-server/
-.vscode/sftp.json
-.vscode/tags
-.devcontainer/
+# Rider
+.idea/
+.idea_modules/
+*.sln.iml
+*.swp
+*.swo
+*~
+.DS_Store
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# NuGet
+.nuget/
+*.nupkg
+*.snupkg
+
+# MAUI specific
+bin/
+obj/
+*.apk
+*.aab
+*.ipa
+*.app
+*.exe
+*.bundle
+
+# macOS
+.DS_Store
+
+# iOS/Mac
+.generated/
+Pods/
+Podfile.lock
+
+# Android
+local.properties
+
+# Windows
+Thumbs.db
+
+# Rider specific
+riderModule.iml
+
+# IntelliJ
+*.iml
+*.iws
+*.ipr
+
+# NaCl SDK
+nacl_sdk/
+
+# Package files
+*.jar
+
+# Maven
+target/
+
+# Gradle
+gradle-app.setting
+local.properties
+.gradle/
+
+# Other
+*.log
+*.swp
+*.swo
+*~
+.DS_Store
+.env
+.env.local
+appsettings.local.json
