@@ -4,31 +4,38 @@
              x:Class="SoundByte.MainPage">
 
     <ScrollView>
-        <VerticalStackLayout
-            Padding="30,0"
-            Spacing="25">
-            <CollectionView ItemsSource="{Binding SoundBytes}">
+        <VerticalStackLayout Padding="30,0"
+                Spacing="25">
+            <!-- Display groups and their items -->
+            <CollectionView ItemsSource="{Binding Groups}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Label Text="{Binding .}"
-                               Padding="10"/>
+                        <VerticalStackLayout Padding="10"
+                                Spacing="10">
+                            <!-- Group name -->
+                            <Label Text="{Binding Name}"
+                                    FontSize="18"
+                                    FontAttributes="Bold"/>
+
+                            <!-- Items in group -->
+                            <CollectionView ItemsSource="{Binding Items}">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <Label Text="{Binding Name}"
+                                                Padding="10,5"/>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
+                        </VerticalStackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <Label
-                Text="Welcome to &#10;.NET Multi-platform App UI"
-                Style="{StaticResource SubHeadline}"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"/>
-            <Entry
-                x:Name="SoundbyteNameInput"
-                Text="Testing Entry"/>
-            <Button
-                x:Name="AddSoundByteButton"
-                Text="Add SoundByte"
-                Clicked="OnAddSoundByteClicked"
-                HorizontalOptions="Fill"/>
+            <Entry x:Name="SoundbyteNameInput"
+                    Placeholder="Enter sound byte name"/>
+            <Button Text="Add SoundByte"
+                    Clicked="OnAddSoundByteClicked"
+                    HorizontalOptions="Fill"/>
         </VerticalStackLayout>
     </ScrollView>
 

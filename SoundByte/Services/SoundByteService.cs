@@ -10,16 +10,34 @@ internal class SoundByteService
 
     public async Task SaveAsync(List<SoundByteGroup> items)
     {
-        string json = JsonSerializer.Serialize(items);
+        // Convert ObservableCollections to Lists for serialization
+        var serializableGroups = items.Select(g => new
+        {
+            g.Name,
+            Items = g.Items.ToList()
+        }).ToList();
+
+        string json = JsonSerializer.Serialize(serializableGroups);
         await File.WriteAllTextAsync(filePath, json);
     }
 
     public async Task<List<SoundByteGroup>> LoadAsync()
     {
-        if (!File.Exists(filePath))
-            return [];
+        List<SoundByteGroup> groups;
 
-        string json = await File.ReadAllTextAsync(filePath);
-        return JsonSerializer.Deserialize<List<SoundByteGroup>>(json) ?? [];
+        if (!File.Exists(filePath))
+            groups = [];
+        else
+        {
+            string json = await File.ReadAllTextAsync(filePath);
+            groups = JsonSerializer.Deserialize<List<SoundByteGroup>>(json) ?? [];
+        }
+
+        if (!groups.Any(g => g.Name == "Default"))
+        {
+            groups.Insert(0, new SoundByteGroup("Default"));
+        }
+
+        return groups;
     }
 }

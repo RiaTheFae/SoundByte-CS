@@ -1,21 +1,29 @@
 ﻿using System.Collections.ObjectModel;
+using SoundByte.Models;
+using SoundByte.ViewModels;
 
 namespace SoundByte;
 
 public partial class MainPage : ContentPage
 {
-	public ObservableCollection<string> SoundBytes { get; set; } = [];
+	private SoundByteViewModel viewModel;
+
 	public MainPage()
 	{
-		SoundBytes.Add("Test");
-
 		InitializeComponent();
-		BindingContext = this;
+		viewModel = new SoundByteViewModel();
+		BindingContext = viewModel;
+
+		MainThread.BeginInvokeOnMainThread(async () => await viewModel.Initialize());
 	}
 
-	private void OnAddSoundByteClicked(object? sender, EventArgs e)
+	private async void OnAddSoundByteClicked(object? sender, EventArgs e)
 	{
-		SoundBytes.Add(SoundbyteNameInput.Text);
+		var defaultGroup = viewModel.Groups.First(g => g.Name == "Default");
+		var item = new SoundByteItem(SoundbyteNameInput.Text, "");
+		defaultGroup.AddItem(item);
 		SoundbyteNameInput.Text = "";
+
+		await viewModel.SaveGroups();
 	}
 }
