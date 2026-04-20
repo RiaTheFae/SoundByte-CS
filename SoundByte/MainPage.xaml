@@ -36,6 +36,8 @@
             <Button Text="Choose File"
                     Clicked="ChooseFile"/>
             <Entry x:Name="AddSoundbyteFilePathEntry"/>
+            <Picker x:Name="AddSoundbyteColorPicker"
+                    Title="Select a Color"/>
         </VerticalStackLayout>
     </ScrollView>
 

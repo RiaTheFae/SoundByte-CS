@@ -13,6 +13,8 @@ public partial class MainPage : ContentPage
 		viewModel = new SoundByteViewModel();
 		BindingContext = viewModel;
 		MainThread.BeginInvokeOnMainThread(async () => await viewModel.Initialize());
+		AddSoundbyteColorPicker.ItemsSource = Enum.GetValues<Models.Colors>().Cast<Models.Colors>().ToList();
+		AddSoundbyteColorPicker.SelectedIndex = 0;
 	}
 
 	private async void OnAddSoundbyteClicked(object? sender, EventArgs e)
@@ -20,7 +22,7 @@ public partial class MainPage : ContentPage
 		if (!string.IsNullOrWhiteSpace(AddSoundbyteNameEntry.Text) && !string.IsNullOrWhiteSpace(AddSoundbyteFilePathEntry.Text))
 		{
 			var defaultGroup = viewModel.Groups.First(g => g.Name == "Default");
-			var item = new SoundByteItem(AddSoundbyteNameEntry.Text, AddSoundbyteFilePathEntry.Text);
+			var item = new SoundByteItem(AddSoundbyteNameEntry.Text, AddSoundbyteFilePathEntry.Text, (Models.Colors)AddSoundbyteColorPicker.SelectedIndex);
 
 			defaultGroup.AddItem(item);
 			AddSoundbyteNameEntry.Text = null;

@@ -4,13 +4,13 @@ public class SoundByteItem
 {
     public string Name { get; set; }
     public string FilePath { get; set; }
-    public Color Color { get; set; }
+    public int Color { get; set; }
     public SoundByteItem() { }
 
-    public SoundByteItem(string name, string filePath)
+    public SoundByteItem(string name, string filePath, Colors color)
     {
         Name = name;
         FilePath = filePath;
-        Color = Color.FromRgb(255, 255, 255);
+        Color = (int)color;
     }
 }
