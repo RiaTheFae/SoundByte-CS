@@ -5,24 +5,21 @@
 
     <ScrollView>
         <VerticalStackLayout Padding="30,0"
-                Spacing="25">
-            <!-- Display groups and their items -->
+                             Spacing="25">
             <CollectionView ItemsSource="{Binding Groups}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <VerticalStackLayout Padding="10"
-                                Spacing="10">
-                            <!-- Group name -->
+                                             Spacing="10">
                             <Label Text="{Binding Name}"
-                                    FontSize="18"
-                                    FontAttributes="Bold"/>
+                                   FontSize="18"
+                                   FontAttributes="Bold"/>
 
-                            <!-- Items in group -->
                             <CollectionView ItemsSource="{Binding Items}">
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate>
                                         <Label Text="{Binding Name}"
-                                                Padding="10,5"/>
+                                               Padding="10,5"/>
                                     </DataTemplate>
                                 </CollectionView.ItemTemplate>
                             </CollectionView>
@@ -31,11 +28,14 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <Entry x:Name="SoundbyteNameInput"
-                    Placeholder="Enter sound byte name"/>
+            <Entry x:Name="AddSoundbyteNameEntry"
+                   Placeholder="Enter sound byte name"/>
             <Button Text="Add SoundByte"
-                    Clicked="OnAddSoundByteClicked"
+                    Clicked="OnAddSoundbyteClicked"
                     HorizontalOptions="Fill"/>
+            <Button Text="Choose File"
+                    Clicked="ChooseFile"/>
+            <Entry x:Name="AddSoundbyteFilePathEntry"/>
         </VerticalStackLayout>
     </ScrollView>
 

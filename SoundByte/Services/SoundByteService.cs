@@ -10,7 +10,6 @@ internal class SoundByteService
 
     public async Task SaveAsync(List<SoundByteGroup> items)
     {
-        // Convert ObservableCollections to Lists for serialization
         var serializableGroups = items.Select(g => new
         {
             g.Name,
