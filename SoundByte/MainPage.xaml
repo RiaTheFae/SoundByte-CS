@@ -3,7 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:SoundByte.Converters"
              xmlns:models="clr-namespace:SoundByte.Models"
-             x:Class="SoundByte.MainPage">
+             xmlns:viewmodels="clr-namespace:SoundByte.ViewModels"
+             x:Class="SoundByte.MainPage"
+             x:DataType="viewmodels:SoundByteViewModel">
     <ContentPage.Resources>
         <converters:SoundByteColorConverter x:Key="ColorConverter"/>
     </ContentPage.Resources>
@@ -48,6 +50,11 @@
                    IsReadOnly="True"/>
             <Picker x:Name="AddSoundbyteColorPicker"
                     Title="Select a Color"/>
+            <Picker x:Name="AddSoundbyteGroupPicker"
+                    Title="Select a Group"
+                    ItemsSource="{Binding Groups}"
+                    SelectedItem="{Binding SelectedGroup}"
+                    ItemDisplayBinding="{Binding Name}"/>
             <Button Text="Add SoundByte"
                     Clicked="OnAddSoundbyteClicked"
                     HorizontalOptions="Fill"/>

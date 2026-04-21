@@ -5,6 +5,7 @@ namespace SoundByte.Models;
 public class SoundByteGroup
 {
     public string Name { get; set; }
+    public bool IsDefault { get; set; }
     public ObservableCollection<SoundByteItem> Items { get; set; } = [];
 
     public SoundByteGroup() { }

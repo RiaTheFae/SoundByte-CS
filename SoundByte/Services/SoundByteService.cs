@@ -1,4 +1,3 @@
-using System.Collections.ObjectModel;
 using System.Text.Json;
 using SoundByte.Models;
 
@@ -7,36 +6,30 @@ namespace SoundByte.Services;
 internal class SoundByteService
 {
     private readonly string filePath = Path.Combine(FileSystem.AppDataDirectory, "soundbytes.json");
-
-    public async Task SaveAsync(List<SoundByteGroup> items)
+    private static readonly JsonSerializerOptions jsonOptions = new()
     {
-        var serializableGroups = items.Select(g => new
-        {
-            g.Name,
-            Items = g.Items.ToList()
-        }).ToList();
-
-        string json = JsonSerializer.Serialize(serializableGroups);
+        WriteIndented = true
+    };
+    public async Task SaveAsync(List<SoundByteGroup> groups)
+    {
+        string json = JsonSerializer.Serialize(groups, jsonOptions);
         await File.WriteAllTextAsync(filePath, json);
     }
 
     public async Task<List<SoundByteGroup>> LoadAsync()
     {
         List<SoundByteGroup> groups;
-
         if (!File.Exists(filePath))
             groups = [];
         else
         {
             string json = await File.ReadAllTextAsync(filePath);
-            groups = JsonSerializer.Deserialize<List<SoundByteGroup>>(json) ?? [];
+            groups = JsonSerializer.Deserialize<List<SoundByteGroup>>(json, jsonOptions) ?? [];
         }
-
-        if (!groups.Any(g => g.Name == "Default"))
+        if (!groups.Exists(g => g.IsDefault))
         {
-            groups.Insert(0, new SoundByteGroup("Default"));
+            groups.Insert(0, new SoundByteGroup("Default") { IsDefault = true });
         }
-
         return groups;
     }
 }
