@@ -6,15 +6,18 @@ namespace SoundByte;
 public partial class MainPage : ContentPage
 {
 	readonly private SoundByteViewModel viewModel;
-
 	public MainPage()
 	{
 		InitializeComponent();
 		viewModel = new SoundByteViewModel();
 		BindingContext = viewModel;
-		MainThread.BeginInvokeOnMainThread(async () => await viewModel.Initialize());
-		AddSoundbyteColorPicker.ItemsSource = Enum.GetValues<Models.Colors>().Cast<Models.Colors>().ToList();
+		AddSoundbyteColorPicker.ItemsSource = Enum.GetValues<SoundbyteColors>().ToList();
 		AddSoundbyteColorPicker.SelectedIndex = 0;
+	}
+	protected override async void OnAppearing()
+	{
+		base.OnAppearing();
+		await viewModel.Initialize();
 	}
 
 	private async void OnAddSoundbyteClicked(object? sender, EventArgs e)
@@ -22,7 +25,7 @@ public partial class MainPage : ContentPage
 		if (!string.IsNullOrWhiteSpace(AddSoundbyteNameEntry.Text) && !string.IsNullOrWhiteSpace(AddSoundbyteFilePathEntry.Text))
 		{
 			var defaultGroup = viewModel.Groups.First(g => g.Name == "Default");
-			var item = new SoundByteItem(AddSoundbyteNameEntry.Text, AddSoundbyteFilePathEntry.Text, (Models.Colors)AddSoundbyteColorPicker.SelectedIndex);
+			var item = new SoundByteItem(AddSoundbyteNameEntry.Text, AddSoundbyteFilePathEntry.Text, (SoundbyteColors)AddSoundbyteColorPicker.SelectedIndex);
 
 			defaultGroup.AddItem(item);
 			AddSoundbyteNameEntry.Text = null;
@@ -35,12 +38,26 @@ public partial class MainPage : ContentPage
 		await viewModel.SaveGroups();
 	}
 
+	private static readonly string[] fileTypes = [".mp3", ".wav", ".m4a", ".flac", ".aac", ".ogg", ".wma"];
+	private static readonly PickOptions pickOptions = new()
+	{
+		PickerTitle = "Select an Audio File",
+		FileTypes = new FilePickerFileType(
+		new Dictionary<DevicePlatform, IEnumerable<string>>
+		{
+			{ DevicePlatform.WinUI, fileTypes }
+		})
+	};
 	private async void ChooseFile(object sender, EventArgs e)
 	{
-		var result = await FilePicker.PickAsync();
-		if (result != null)
+		try
 		{
-			AddSoundbyteFilePathEntry.Text = result.FullPath;
+			var result = await FilePicker.PickAsync(pickOptions);
+			if (result != null)
+			{
+				AddSoundbyteFilePathEntry.Text = result.FullPath;
+			}
 		}
+		catch (OperationCanceledException) { }
 	}
 }

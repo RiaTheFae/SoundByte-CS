@@ -5,7 +5,7 @@ namespace SoundByte.ViewModels;
 
 public class SoundByteViewModel
 {
-    private SoundByteService service = new();
+    private readonly SoundByteService service = new();
 
     public ObservableCollection<SoundByteGroup> Groups { get; set; } = [];
     public async Task Initialize()
@@ -20,6 +20,6 @@ public class SoundByteViewModel
 
     public async Task SaveGroups()
     {
-        await service.SaveAsync(Groups.ToList());
+        await service.SaveAsync([.. Groups]);
     }
 }

@@ -1,14 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:SoundByte.Converters"
+             xmlns:models="clr-namespace:SoundByte.Models"
              x:Class="SoundByte.MainPage">
-
+    <ContentPage.Resources>
+        <converters:SoundByteColorConverter x:Key="ColorConverter"/>
+    </ContentPage.Resources>
     <ScrollView>
         <VerticalStackLayout Padding="30,0"
                              Spacing="25">
             <CollectionView ItemsSource="{Binding Groups}">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="models:SoundByteGroup">
                         <VerticalStackLayout Padding="10"
                                              Spacing="10">
                             <Label Text="{Binding Name}"
@@ -17,9 +21,17 @@
 
                             <CollectionView ItemsSource="{Binding Items}">
                                 <CollectionView.ItemTemplate>
-                                    <DataTemplate>
-                                        <Label Text="{Binding Name}"
-                                               Padding="10,5"/>
+                                    <DataTemplate x:DataType="models:SoundByteItem">
+                                        <HorizontalStackLayout Padding="10,5"
+                                                               Spacing="10">
+                                            <BoxView Color="{Binding Color, Converter={StaticResource ColorConverter}}"
+                                                     WidthRequest="16"
+                                                     HeightRequest="16"
+                                                     VerticalOptions="Center"
+                                                     CornerRadius="8"/>
+                                            <Label Text="{Binding Name}"
+                                                   VerticalOptions="Center"/>
+                                        </HorizontalStackLayout>
                                     </DataTemplate>
                                 </CollectionView.ItemTemplate>
                             </CollectionView>
@@ -30,14 +42,15 @@
 
             <Entry x:Name="AddSoundbyteNameEntry"
                    Placeholder="Enter sound byte name"/>
+            <Button Text="Choose File"
+                    Clicked="ChooseFile"/>
+            <Entry x:Name="AddSoundbyteFilePathEntry"
+                   IsReadOnly="True"/>
+            <Picker x:Name="AddSoundbyteColorPicker"
+                    Title="Select a Color"/>
             <Button Text="Add SoundByte"
                     Clicked="OnAddSoundbyteClicked"
                     HorizontalOptions="Fill"/>
-            <Button Text="Choose File"
-                    Clicked="ChooseFile"/>
-            <Entry x:Name="AddSoundbyteFilePathEntry"/>
-            <Picker x:Name="AddSoundbyteColorPicker"
-                    Title="Select a Color"/>
         </VerticalStackLayout>
     </ScrollView>
 
