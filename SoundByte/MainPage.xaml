@@ -20,8 +20,15 @@
                             <Label Text="{Binding Name}"
                                    FontSize="18"
                                    FontAttributes="Bold"/>
-
                             <CollectionView ItemsSource="{Binding Items}">
+                                <FlyoutBase.ContextFlyout>
+                                    <MenuFlyout>
+                                        <MenuFlyoutItem
+                                            Text="Test"
+                                            Clicked="RemoveSoundbyte"
+                                            CommandParameter="{Binding .}"/>
+                                    </MenuFlyout>
+                                </FlyoutBase.ContextFlyout>
                                 <CollectionView.ItemTemplate>
                                     <DataTemplate x:DataType="models:SoundByteItem">
                                         <HorizontalStackLayout Padding="10,5"

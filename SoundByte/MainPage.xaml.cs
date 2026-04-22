@@ -1,5 +1,6 @@
 ﻿using SoundByte.Models;
 using SoundByte.ViewModels;
+using WinRT;
 
 namespace SoundByte;
 
@@ -24,7 +25,7 @@ public partial class MainPage : ContentPage
 	{
 		if (!string.IsNullOrWhiteSpace(AddSoundbyteNameEntry.Text) && !string.IsNullOrWhiteSpace(AddSoundbyteFilePathEntry.Text))
 		{
-			var defaultGroup = viewModel.Groups.First(g => g.Name == "Default");
+			var defaultGroup = viewModel.Groups.First(g => g.IsDefault);
 			var item = new SoundByteItem(AddSoundbyteNameEntry.Text, AddSoundbyteFilePathEntry.Text, (SoundbyteColors)AddSoundbyteColorPicker.SelectedIndex);
 
 			defaultGroup.AddItem(item);
@@ -37,7 +38,6 @@ public partial class MainPage : ContentPage
 		}
 		await viewModel.SaveGroups();
 	}
-
 	private static readonly string[] fileTypes = [".mp3", ".wav", ".m4a", ".flac", ".aac", ".ogg", ".wma"];
 	private static readonly PickOptions pickOptions = new()
 	{
@@ -59,5 +59,10 @@ public partial class MainPage : ContentPage
 			}
 		}
 		catch (OperationCanceledException) { }
+	}
+
+	private void RemoveSoundbyte(object sender, EventArgs e)
+	{
+		DisplayAlertAsync("DEBUG", "TEST", "OK");
 	}
 }
