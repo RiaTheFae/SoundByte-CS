@@ -97,3 +97,4 @@ local.properties
 .env
 .env.local
 appsettings.local.json
+*.png

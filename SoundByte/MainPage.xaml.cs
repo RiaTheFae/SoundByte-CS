@@ -24,10 +24,9 @@ public partial class MainPage : ContentPage
 	{
 		if (!string.IsNullOrWhiteSpace(AddSoundbyteNameEntry.Text) && !string.IsNullOrWhiteSpace(AddSoundbyteFilePathEntry.Text))
 		{
-			var defaultGroup = viewModel.Groups.First(g => g.IsDefault);
 			var item = new SoundByteItem(AddSoundbyteNameEntry.Text, AddSoundbyteFilePathEntry.Text, (SoundbyteColors)AddSoundbyteColorPicker.SelectedIndex);
 
-			defaultGroup.AddItem(item);
+			viewModel.SelectedGroup.AddItem(item);
 			AddSoundbyteNameEntry.Text = null;
 			AddSoundbyteFilePathEntry.Text = null;
 		}

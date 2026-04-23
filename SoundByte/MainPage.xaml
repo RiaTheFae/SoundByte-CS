@@ -9,61 +9,47 @@
 	<ContentPage.Resources>
 		<converters:SoundByteColorConverter x:Key="ColorConverter"/>
 	</ContentPage.Resources>
-	<ScrollView>
-		<VerticalStackLayout Padding="30,0"
-                             Spacing="25">
-			<CollectionView ItemsSource="{Binding Groups}">
-				<CollectionView.ItemTemplate>
-					<DataTemplate x:DataType="viewmodels:SoundByteGroupViewModel">
-						<VerticalStackLayout Padding="10"
-                                             Spacing="10">
-							<Label Text="{Binding Name}"
-                                   FontSize="18"
-                                   FontAttributes="Bold"/>
-							<CollectionView ItemsSource="{Binding Items}">
-								<FlyoutBase.ContextFlyout>
-									<MenuFlyout>
-										<MenuFlyoutItem
-                                            Text="Test"/>
-									</MenuFlyout>
-								</FlyoutBase.ContextFlyout>
-								<CollectionView.ItemTemplate>
-									<DataTemplate x:DataType="viewmodels:SoundbyteItemViewModel">
-										<HorizontalStackLayout Padding="10,5"
-                                                               Spacing="10">
-											<BoxView Color="{Binding Color, Converter={StaticResource ColorConverter}}"
-                                                     WidthRequest="16"
-                                                     HeightRequest="16"
-                                                     VerticalOptions="Center"
-                                                     CornerRadius="8"/>
-											<Label Text="{Binding Name}"
-                                                   VerticalOptions="Center"/>
-										</HorizontalStackLayout>
-									</DataTemplate>
-								</CollectionView.ItemTemplate>
-							</CollectionView>
-						</VerticalStackLayout>
-					</DataTemplate>
-				</CollectionView.ItemTemplate>
-			</CollectionView>
-
-			<Entry x:Name="AddSoundbyteNameEntry"
-                   Placeholder="Enter sound byte name"/>
-			<Button Text="Choose File"
-                    Clicked="ChooseFile"/>
-			<Entry x:Name="AddSoundbyteFilePathEntry"
-                   IsReadOnly="True"/>
-			<Picker x:Name="AddSoundbyteColorPicker"
-                    Title="Select a Color"/>
-			<Picker x:Name="AddSoundbyteGroupPicker"
-                    Title="Select a Group"
-                    ItemsSource="{Binding Groups}"
-                    SelectedItem="{Binding SelectedGroup}"
-                    ItemDisplayBinding="{Binding Name}"/>
-			<Button Text="Add SoundByte"
-                    Clicked="OnAddSoundbyteClicked"
-                    HorizontalOptions="Fill"/>
-		</VerticalStackLayout>
-	</ScrollView>
-
+	<VerticalStackLayout Padding="30,0"
+                         Spacing="25">
+		<HorizontalStackLayout>
+			<Picker x:Name="DisplayGroupPicker"
+					Title="Select a Group"
+					ItemsSource="{Binding Groups}"
+					SelectedItem="{Binding SelectedGroup}"
+					ItemDisplayBinding="{Binding Name}"/>
+		</HorizontalStackLayout>
+		<CollectionView ItemsSource="{Binding SelectedGroup.Items}">
+			<CollectionView.ItemsLayout>
+				<GridItemsLayout Orientation="Vertical"
+								 Span="2"
+								 HorizontalItemSpacing="10"
+								 VerticalItemSpacing="10"/>
+			</CollectionView.ItemsLayout>
+			<CollectionView.ItemTemplate>
+				<DataTemplate x:DataType="viewmodels:SoundbyteItemViewModel">
+					<HorizontalStackLayout Padding="10,5"
+											   Spacing="10">
+						<BoxView Color="{Binding Color, Converter={StaticResource ColorConverter}}"
+                                     WidthRequest="8"
+                                     HeightRequest="16"
+                                     VerticalOptions="Center"
+                                     CornerRadius="8"/>
+						<Label Text="{Binding Name}"
+                                   VerticalOptions="Center"/>
+					</HorizontalStackLayout>
+				</DataTemplate>
+			</CollectionView.ItemTemplate>
+		</CollectionView>
+		<Entry x:Name="AddSoundbyteNameEntry"
+               Placeholder="Enter sound byte name"/>
+		<Button Text="Choose File"
+				Clicked="ChooseFile"/>
+		<Entry x:Name="AddSoundbyteFilePathEntry"
+               IsReadOnly="True"/>
+		<Picker x:Name="AddSoundbyteColorPicker"
+                Title="Select a Color"/>
+		<Button Text="Add SoundByte"
+                Clicked="OnAddSoundbyteClicked"
+                HorizontalOptions="Fill"/>
+	</VerticalStackLayout>
 </ContentPage>
