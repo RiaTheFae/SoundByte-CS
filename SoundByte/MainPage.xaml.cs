@@ -1,6 +1,5 @@
 ﻿using SoundByte.Models;
 using SoundByte.ViewModels;
-using WinRT;
 
 namespace SoundByte;
 
@@ -59,10 +58,5 @@ public partial class MainPage : ContentPage
 			}
 		}
 		catch (OperationCanceledException) { }
-	}
-
-	private void RemoveSoundbyte(object sender, EventArgs e)
-	{
-		DisplayAlertAsync("DEBUG", "TEST", "OK");
 	}
 }
