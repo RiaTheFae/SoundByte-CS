@@ -8,11 +8,15 @@ namespace SoundByte.ViewModels;
 public partial class SoundByteViewModel : ObservableObject
 {
 	private readonly SoundByteService _service = new();
+	private SoundByteGroupViewModel? _selectedGroup;
 
 	public ObservableCollection<SoundByteGroupViewModel> Groups { get; } = [];
 
-	[ObservableProperty]
-	public partial SoundByteGroupViewModel? SelectedGroup { get; set; }
+	public SoundByteGroupViewModel? SelectedGroup
+	{
+		get => _selectedGroup;
+		set => SetProperty(ref _selectedGroup, value);
+	}
 
 	public async Task Initialize()
 	{

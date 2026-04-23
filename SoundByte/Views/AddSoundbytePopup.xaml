@@ -1,0 +1,48 @@
+<toolkit:Popup
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+	xmlns:models="clr-namespace:SoundByte.Models"
+    Padding="10"
+    x:TypeArguments="models:SoundByteItem"
+    x:Class="SoundByte.Views.AddSoundbytePopup"
+	BackgroundColor="DarkSlateGray"
+	WidthRequest="300">
+
+	<VerticalStackLayout Spacing="6"
+						 WidthRequest="250">
+		<Label Text="Name:"/>
+		<Entry x:Name="AddSoundbyteNameEntry"
+               Placeholder="Enter sound byte name"/>
+		<Label Text="File:"/>
+		<Entry x:Name="AddSoundbyteFilePathEntry"
+               IsReadOnly="True"/>
+		<Button Text="Choose File"
+				Clicked="ChooseFile"
+				BackgroundColor="DarkOrchid"
+				TextColor="White"/>
+		<Picker x:Name="AddSoundbyteColorPicker"
+                Title="Select a Color"
+				TitleColor="White"/>
+		<Label x:Name="ErrorLabel"
+               Text="One or more fields were empty"
+               TextColor="Red"
+               IsVisible="False"/>
+		<HorizontalStackLayout
+			HorizontalOptions="End"
+			Spacing="7"
+			Margin="5">
+			<Button Text="Cancel"
+					BackgroundColor="Maroon"
+					TextColor="White"
+					Clicked="Cancel"/>
+			<Button Text="Add SoundByte"
+                Clicked="AddSoundbyteClicked"
+                HorizontalOptions="Center"
+				BackgroundColor="DarkCyan"
+				TextColor="White"/>
+		</HorizontalStackLayout>
+	</VerticalStackLayout>
+
+</toolkit:Popup>

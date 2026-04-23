@@ -11,12 +11,19 @@
 	</ContentPage.Resources>
 	<VerticalStackLayout Padding="30,0"
                          Spacing="25">
-		<HorizontalStackLayout>
+		<HorizontalStackLayout Padding="10"
+							   Spacing="10">
 			<Picker x:Name="DisplayGroupPicker"
-					Title="Select a Group"
 					ItemsSource="{Binding Groups}"
 					SelectedItem="{Binding SelectedGroup}"
 					ItemDisplayBinding="{Binding Name}"/>
+			<Button Text="+"
+					FontSize="25"
+					Padding="0"
+					CharacterSpacing="0"
+					Clicked="CreateSoundbyte"
+					Margin="1"
+					BackgroundColor="LightSeaGreen"/>
 		</HorizontalStackLayout>
 		<CollectionView ItemsSource="{Binding SelectedGroup.Items}">
 			<CollectionView.ItemsLayout>
@@ -40,16 +47,5 @@
 				</DataTemplate>
 			</CollectionView.ItemTemplate>
 		</CollectionView>
-		<Entry x:Name="AddSoundbyteNameEntry"
-               Placeholder="Enter sound byte name"/>
-		<Button Text="Choose File"
-				Clicked="ChooseFile"/>
-		<Entry x:Name="AddSoundbyteFilePathEntry"
-               IsReadOnly="True"/>
-		<Picker x:Name="AddSoundbyteColorPicker"
-                Title="Select a Color"/>
-		<Button Text="Add SoundByte"
-                Clicked="OnAddSoundbyteClicked"
-                HorizontalOptions="Fill"/>
 	</VerticalStackLayout>
 </ContentPage>

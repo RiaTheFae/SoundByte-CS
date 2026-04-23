@@ -1,61 +1,39 @@
-﻿using SoundByte.Models;
+﻿using CommunityToolkit.Maui;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Maui.Extensions;
+using SoundByte.Models;
 using SoundByte.ViewModels;
+using SoundByte.Views;
 
 namespace SoundByte;
 
 public partial class MainPage : ContentPage
 {
 	readonly private SoundByteViewModel viewModel;
+	private Task? _initializeTask;
 	public MainPage()
 	{
 		InitializeComponent();
 		viewModel = new SoundByteViewModel();
 		BindingContext = viewModel;
-		AddSoundbyteColorPicker.ItemsSource = Enum.GetValues<SoundbyteColors>().ToList();
-		AddSoundbyteColorPicker.SelectedIndex = 0;
 	}
 	protected override async void OnAppearing()
 	{
 		base.OnAppearing();
-		await viewModel.Initialize();
+		_initializeTask ??= viewModel.Initialize();
+		await _initializeTask;
 	}
 
-	private async void OnAddSoundbyteClicked(object? sender, EventArgs e)
+	private async void CreateSoundbyte(object sender, EventArgs e)
 	{
-		if (!string.IsNullOrWhiteSpace(AddSoundbyteNameEntry.Text) && !string.IsNullOrWhiteSpace(AddSoundbyteFilePathEntry.Text))
-		{
-			var item = new SoundByteItem(AddSoundbyteNameEntry.Text, AddSoundbyteFilePathEntry.Text, (SoundbyteColors)AddSoundbyteColorPicker.SelectedIndex);
+		var NewSoundbyte = new AddSoundbytePopup();
 
-			viewModel.SelectedGroup.AddItem(item);
-			AddSoundbyteNameEntry.Text = null;
-			AddSoundbyteFilePathEntry.Text = null;
-		}
-		else
+		IPopupResult<SoundByteItem?> NewSoundbyteResult = await this.ShowPopupAsync<SoundByteItem?>(NewSoundbyte, new PopupOptions { }, CancellationToken.None);
+
+		if (NewSoundbyteResult.Result is not null)
 		{
-			await DisplayAlertAsync("Failed to add Soundbyte", "One or more fields were empty", "OK");
+			viewModel.SelectedGroup.AddItem(NewSoundbyteResult.Result);
+			await viewModel.SaveGroups();
 		}
-		await viewModel.SaveGroups();
-	}
-	private static readonly string[] fileTypes = [".mp3", ".wav", ".m4a", ".flac", ".aac", ".ogg", ".wma"];
-	private static readonly PickOptions pickOptions = new()
-	{
-		PickerTitle = "Select an Audio File",
-		FileTypes = new FilePickerFileType(
-		new Dictionary<DevicePlatform, IEnumerable<string>>
-		{
-			{ DevicePlatform.WinUI, fileTypes }
-		})
-	};
-	private async void ChooseFile(object sender, EventArgs e)
-	{
-		try
-		{
-			var result = await FilePicker.PickAsync(pickOptions);
-			if (result != null)
-			{
-				AddSoundbyteFilePathEntry.Text = result.FullPath;
-			}
-		}
-		catch (OperationCanceledException) { }
 	}
 }
