@@ -1,51 +1,86 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:converters="clr-namespace:SoundByte.Converters"
-             xmlns:models="clr-namespace:SoundByte.Models"
-             xmlns:viewmodels="clr-namespace:SoundByte.ViewModels"
-             x:Class="SoundByte.MainPage"
-             x:DataType="viewmodels:SoundByteViewModel">
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:converters="clr-namespace:SoundByte.Converters"
+			 xmlns:models="clr-namespace:SoundByte.Models"
+			 xmlns:viewmodels="clr-namespace:SoundByte.ViewModels"
+			 x:Class="SoundByte.MainPage"
+			 x:DataType="viewmodels:SoundByteViewModel">
 	<ContentPage.Resources>
 		<converters:SoundByteColorConverter x:Key="ColorConverter"/>
 	</ContentPage.Resources>
-	<VerticalStackLayout Padding="30,0"
-                         Spacing="25">
+	<Grid Padding="30,0"
+		  RowDefinitions="Auto, *">
 		<HorizontalStackLayout Padding="10"
 							   Spacing="10">
 			<Picker x:Name="DisplayGroupPicker"
 					ItemsSource="{Binding Groups}"
 					SelectedItem="{Binding SelectedGroup}"
-					ItemDisplayBinding="{Binding Name}"/>
+					ItemDisplayBinding="{Binding Name}"
+					WidthRequest="250"/>
 			<Button Text="+"
 					FontSize="25"
 					Padding="0"
 					CharacterSpacing="0"
 					Clicked="CreateSoundbyte"
 					Margin="1"
-					BackgroundColor="LightSeaGreen"/>
+					BackgroundColor="LightSeaGreen"
+					CornerRadius="30"/>
 		</HorizontalStackLayout>
-		<CollectionView ItemsSource="{Binding SelectedGroup.Items}">
+		<CollectionView ItemsSource="{Binding SelectedGroup.Items}"
+						Grid.Row="1">
 			<CollectionView.ItemsLayout>
 				<GridItemsLayout Orientation="Vertical"
-								 Span="2"
+								 Span="9"
 								 HorizontalItemSpacing="10"
 								 VerticalItemSpacing="10"/>
 			</CollectionView.ItemsLayout>
 			<CollectionView.ItemTemplate>
 				<DataTemplate x:DataType="viewmodels:SoundbyteItemViewModel">
-					<HorizontalStackLayout Padding="10,5"
-											   Spacing="10">
-						<BoxView Color="{Binding Color, Converter={StaticResource ColorConverter}}"
-                                     WidthRequest="8"
-                                     HeightRequest="16"
-                                     VerticalOptions="Center"
-                                     CornerRadius="8"/>
-						<Label Text="{Binding Name}"
-                                   VerticalOptions="Center"/>
-					</HorizontalStackLayout>
+					<Border Stroke="{Binding Color, Converter={StaticResource ColorConverter}}">
+						<Grid Padding="5"
+								  Margin="5"
+								  HeightRequest="125">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="4*"/>
+								<ColumnDefinition Width="2*"/>
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="4*"/>
+								<RowDefinition Height="*"/>
+								<RowDefinition Height="*"/>
+							</Grid.RowDefinitions>
+							<Label Text="{Binding Name}"
+									   VerticalOptions="Center"
+									   Grid.Row="1"
+									   LineBreakMode="TailTruncation"
+									   FontSize="13"/>
+							<Button Text="▶"
+									x:Name="PlaySoundbyteButton"
+										FontSize="60"
+										TextColor="{Binding Color, Converter={StaticResource ColorConverter}}"
+										Background="Transparent"
+										HorizontalOptions="Start"
+									Clicked="PlaySoundbyteItem"/>
+							<Button Text="*"
+										WidthRequest="1"
+										HeightRequest="1"
+										BorderWidth="3"
+										BackgroundColor="Transparent"
+										Grid.Column="1"
+										TextColor="White"
+										FontSize="20"
+										VerticalOptions="Start"
+										HorizontalOptions="End"
+										Padding="0"/>
+							<Label Text="0.0"
+									   Grid.Column="1"
+									   Grid.Row="2"
+									   HorizontalOptions="End"/>
+						</Grid>
+					</Border>
 				</DataTemplate>
 			</CollectionView.ItemTemplate>
 		</CollectionView>
-	</VerticalStackLayout>
+	</Grid>
 </ContentPage>

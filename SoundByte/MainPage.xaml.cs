@@ -36,4 +36,16 @@ public partial class MainPage : ContentPage
 			await viewModel.SaveGroups();
 		}
 	}
+	private async void PlaySoundbyteItem(object sender, EventArgs e)
+	{
+		if (sender is Button button)
+			if (button.Text == "▶")
+			{
+				button.Text = "▷";
+			}
+			else
+			{
+				button.Text = "▶";
+			}
+	}
 }
