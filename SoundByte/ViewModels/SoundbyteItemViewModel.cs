@@ -4,11 +4,11 @@ using SoundByte.Models;
 
 namespace SoundByte.ViewModels;
 
-public partial class SoundbyteItemViewModel(SoundByteItem item) : ObservableObject
+public partial class SoundbyteItemViewModel(SoundbyteItem item) : ObservableObject
 {
-	private readonly SoundByteItem _item = item;
+	private readonly SoundbyteItem _item = item;
 
-	public SoundByteItem Item => _item;
+	public SoundbyteItem Item => _item;
 	public string Name => _item.Name;
 	public SoundbyteColors Color => _item.Color;
 

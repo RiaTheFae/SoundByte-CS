@@ -28,7 +28,7 @@ public partial class MainPage : ContentPage
 	{
 		var NewSoundbyte = new AddSoundbytePopup();
 
-		IPopupResult<SoundByteItem?> NewSoundbyteResult = await this.ShowPopupAsync<SoundByteItem?>(NewSoundbyte, new PopupOptions { }, CancellationToken.None);
+		IPopupResult<SoundbyteItem?> NewSoundbyteResult = await this.ShowPopupAsync<SoundbyteItem?>((View)NewSoundbyte, new PopupOptions { }, CancellationToken.None);
 
 		if (NewSoundbyteResult.Result is not null)
 		{

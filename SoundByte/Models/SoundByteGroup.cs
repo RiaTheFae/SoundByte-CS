@@ -6,13 +6,13 @@ public class SoundByteGroup
 {
 	public string? Name { get; set; }
 	public bool IsDefault { get; set; }
-	public ObservableCollection<SoundByteItem> Items { get; set; } = [];
+	public ObservableCollection<SoundbyteItem> Items { get; set; } = [];
 
 	public SoundByteGroup() { }
 
 	public SoundByteGroup(string name) => Name = name;
 
-	public void AddItem(SoundByteItem item) => Items.Add(item);
+	public void AddItem(SoundbyteItem item) => Items.Add(item);
 
-	public void RemoveItem(SoundByteItem item) => Items.Remove(item);
+	public void RemoveItem(SoundbyteItem item) => Items.Remove(item);
 }

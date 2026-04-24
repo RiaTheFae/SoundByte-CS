@@ -19,7 +19,7 @@ public partial class SoundByteGroupViewModel : ObservableObject
 			Items.Add(new SoundbyteItemViewModel(item));
 	}
 
-	public void AddItem(SoundByteItem item)
+	public void AddItem(SoundbyteItem item)
 	{
 		_group.AddItem(item);
 		Items.Add(new SoundbyteItemViewModel(item));

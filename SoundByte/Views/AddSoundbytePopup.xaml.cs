@@ -4,7 +4,7 @@ using SoundByte.Models;
 
 namespace SoundByte.Views;
 
-public partial class AddSoundbytePopup : Popup<SoundByteItem?>
+public partial class AddSoundbytePopup : Popup<SoundbyteItem?>
 {
 	public AddSoundbytePopup()
 	{
@@ -17,7 +17,7 @@ public partial class AddSoundbytePopup : Popup<SoundByteItem?>
 	{
 		if (!string.IsNullOrWhiteSpace(AddSoundbyteNameEntry.Text) && !string.IsNullOrWhiteSpace(AddSoundbyteFilePathEntry.Text))
 		{
-			var item = new SoundByteItem(AddSoundbyteNameEntry.Text, AddSoundbyteFilePathEntry.Text, (SoundbyteColors)AddSoundbyteColorPicker.SelectedIndex);
+			var item = new SoundbyteItem(AddSoundbyteNameEntry.Text, AddSoundbyteFilePathEntry.Text, (SoundbyteColors)AddSoundbyteColorPicker.SelectedIndex);
 
 			await CloseAsync(item);
 		}
