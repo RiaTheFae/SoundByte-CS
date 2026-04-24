@@ -30,14 +30,16 @@ public partial class AddSoundbytePopup : Popup<SoundbyteItem?>
 	{
 		await CloseAsync();
 	}
-	private static readonly string[] fileTypes = [".mp3", ".wav", ".m4a", ".flac", ".aac", ".ogg", ".wma"];
+	private static readonly string[] windowsFileTypes = [".mp3", ".wav", ".m4a", ".flac", ".aac", ".ogg", ".wma"];
+	private static readonly string[] androidFileTypes = ["audio/*"];
 	private static readonly PickOptions pickOptions = new()
 	{
 		PickerTitle = "Select an Audio File",
 		FileTypes = new FilePickerFileType(
 		new Dictionary<DevicePlatform, IEnumerable<string>>
 		{
-			{ DevicePlatform.WinUI, fileTypes }
+		{ DevicePlatform.WinUI, windowsFileTypes },
+		{ DevicePlatform.Android, androidFileTypes }
 		})
 	};
 	private async void ChooseFile(object sender, EventArgs e)
