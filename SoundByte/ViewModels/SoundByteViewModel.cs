@@ -1,5 +1,4 @@
 using System.Collections.ObjectModel;
-using SoundByte.Models;
 using SoundByte.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 

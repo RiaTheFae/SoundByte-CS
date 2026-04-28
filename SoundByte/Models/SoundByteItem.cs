@@ -2,8 +2,8 @@ namespace SoundByte.Models;
 
 public class SoundbyteItem
 {
-	public string? Name { get; set; }
-	public string? FilePath { get; set; }
+	required public string Name { get; set; }
+	required public string FilePath { get; set; }
 	public SoundbyteColors Color { get; set; }
 	public SoundbyteItem() { }
 

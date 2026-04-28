@@ -30,7 +30,7 @@ public partial class MainPage : ContentPage
 
 		IPopupResult<SoundbyteItem?> NewSoundbyteResult = await this.ShowPopupAsync<SoundbyteItem?>((View)NewSoundbyte, new PopupOptions { }, CancellationToken.None);
 
-		if (NewSoundbyteResult.Result is not null)
+		if (NewSoundbyteResult.Result is not null && viewModel.SelectedGroup is not null)
 		{
 			viewModel.SelectedGroup.AddItem(NewSoundbyteResult.Result);
 			await viewModel.SaveGroups();

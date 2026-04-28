@@ -1,5 +1,4 @@
 using CommunityToolkit.Maui.Views;
-using Microsoft.Maui.Controls.Platform;
 using SoundByte.Models;
 
 namespace SoundByte.Views;

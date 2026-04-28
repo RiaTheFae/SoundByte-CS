@@ -4,7 +4,7 @@ namespace SoundByte.Models;
 
 public class SoundByteGroup
 {
-	public string? Name { get; set; }
+	required public string Name { get; set; }
 	public bool IsDefault { get; set; }
 	public ObservableCollection<SoundbyteItem> Items { get; set; } = [];
 

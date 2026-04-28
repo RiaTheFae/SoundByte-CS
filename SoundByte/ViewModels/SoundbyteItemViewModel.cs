@@ -13,18 +13,6 @@ public partial class SoundbyteItemViewModel(SoundbyteItem item) : ObservableObje
 	public SoundbyteColors Color => _item.Color;
 
 	[RelayCommand]
-	private async Task Remove()
-	{
-		throw (new NotImplementedException());
-	}
-
-	[RelayCommand]
-	private async Task Play()
-	{
-		throw (new NotImplementedException());
-	}
-
-	[RelayCommand]
 	private async Task Rename(string newName)
 	{
 		_item.Name = newName;
