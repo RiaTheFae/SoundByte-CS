@@ -25,13 +25,26 @@
 					Clicked="CreateSoundbyte"
 					Margin="1"
 					BackgroundColor="LightSeaGreen"
-					CornerRadius="30"/>
+					CornerRadius="30"
+					BorderColor="Transparent"
+					BorderWidth="1"/>
+			<Button Text="⚙"
+					FontFamily="NotoEmoji"
+					FontSize="25"
+					Padding="0"
+					CharacterSpacing="0"
+					Clicked="OpenOptions"
+					Margin="1"
+					BackgroundColor="Tan"
+					CornerRadius="30"
+					BorderColor="Transparent"
+					BorderWidth="1"/>
 		</HorizontalStackLayout>
 		<CollectionView ItemsSource="{Binding SelectedGroup.Items}"
 						Grid.Row="1">
 			<CollectionView.ItemsLayout>
 				<GridItemsLayout Orientation="Vertical"
-								 Span="9"
+								 Span="{Binding Settings.MaxWidth}"
 								 HorizontalItemSpacing="10"
 								 VerticalItemSpacing="10"/>
 			</CollectionView.ItemsLayout>
@@ -62,7 +75,8 @@
 										Background="Transparent"
 										HorizontalOptions="Start"
 									Clicked="PlaySoundbyteItem"/>
-							<Button Text="*"
+							<Button Text="⚙"
+										FontFamily="NotoEmoji"
 										WidthRequest="1"
 										HeightRequest="1"
 										BorderWidth="3"

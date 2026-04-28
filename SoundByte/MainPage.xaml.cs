@@ -1,7 +1,9 @@
 ﻿using CommunityToolkit.Maui;
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Extensions;
+using Microsoft.Maui.Controls.Shapes;
 using SoundByte.Models;
+using SoundByte.Services;
 using SoundByte.ViewModels;
 using SoundByte.Views;
 
@@ -9,18 +11,21 @@ namespace SoundByte;
 
 public partial class MainPage : ContentPage
 {
-	readonly private SoundByteViewModel viewModel;
 	private Task? _initializeTask;
-	public MainPage()
+	private readonly SoundByteViewModel _viewModel;
+	private readonly AppSettingsService _settings;
+	public MainPage(SoundByteViewModel viewModel, AppSettingsService settings)
 	{
 		InitializeComponent();
-		viewModel = new SoundByteViewModel();
-		BindingContext = viewModel;
+		_viewModel = viewModel;
+		_settings = settings;
+		BindingContext = _viewModel;
+
 	}
 	protected override async void OnAppearing()
 	{
 		base.OnAppearing();
-		_initializeTask ??= viewModel.Initialize();
+		_initializeTask ??= _viewModel.Initialize();
 		await _initializeTask;
 	}
 
@@ -28,12 +33,26 @@ public partial class MainPage : ContentPage
 	{
 		var NewSoundbyte = new AddSoundbytePopup();
 
-		IPopupResult<SoundbyteItem?> NewSoundbyteResult = await this.ShowPopupAsync<SoundbyteItem?>((View)NewSoundbyte, new PopupOptions { }, CancellationToken.None);
-
-		if (NewSoundbyteResult.Result is not null && viewModel.SelectedGroup is not null)
+		IPopupResult<SoundbyteItem?> NewSoundbyteResult = await this.ShowPopupAsync<SoundbyteItem?>((View)NewSoundbyte, new PopupOptions
 		{
-			viewModel.SelectedGroup.AddItem(NewSoundbyteResult.Result);
-			await viewModel.SaveGroups();
+			Shape = new RoundRectangle
+			{
+				CornerRadius = new CornerRadius(8),
+				Stroke = Color.FromRgb(41, 41, 41),
+				StrokeThickness = 3
+			},
+			Shadow = new Shadow
+			{
+				Brush = Brush.DarkSlateGray,
+				Opacity = 0.7f
+			}
+		},
+			CancellationToken.None);
+
+		if (NewSoundbyteResult.Result is not null && _viewModel.SelectedGroup is not null)
+		{
+			_viewModel.SelectedGroup.AddItem(NewSoundbyteResult.Result);
+			await _viewModel.SaveGroups();
 		}
 	}
 	private async void PlaySoundbyteItem(object sender, EventArgs e)
@@ -47,5 +66,9 @@ public partial class MainPage : ContentPage
 			{
 				button.Text = "▶";
 			}
+	}
+	private async void OpenOptions(object sender, EventArgs e)
+	{
+		await Shell.Current.GoToAsync(nameof(OptionsPage));
 	}
 }

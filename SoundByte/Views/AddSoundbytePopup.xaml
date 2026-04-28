@@ -7,9 +7,8 @@
     Padding="10"
     x:TypeArguments="models:SoundbyteItem"
     x:Class="SoundByte.Views.AddSoundbytePopup"
-	BackgroundColor="DarkSlateGray"
-	WidthRequest="300">
-
+	WidthRequest="300"
+	BackgroundColor="#212121">
 	<VerticalStackLayout Spacing="6"
 						 WidthRequest="250">
 		<Label Text="Name:"/>
@@ -21,7 +20,9 @@
 		<Button Text="Choose File"
 				Clicked="ChooseFile"
 				BackgroundColor="DarkOrchid"
-				TextColor="White"/>
+				TextColor="White"
+				BorderColor="Transparent"
+				BorderWidth="1"/>
 		<Picker x:Name="AddSoundbyteColorPicker"
                 Title="Select a Color"
 				TitleColor="White"/>
@@ -36,13 +37,16 @@
 			<Button Text="Cancel"
 					BackgroundColor="Maroon"
 					TextColor="White"
-					Clicked="Cancel"/>
+					Clicked="Cancel"
+					BorderColor="Transparent"
+					BorderWidth="1"/>
 			<Button Text="Add SoundByte"
-                Clicked="AddSoundbyteClicked"
-                HorizontalOptions="Center"
-				BackgroundColor="DarkCyan"
-				TextColor="White"/>
+                	Clicked="AddSoundbyteClicked"
+                	HorizontalOptions="Center"
+					BackgroundColor="DarkCyan"
+					TextColor="White"
+					BorderColor="Transparent"
+					BorderWidth="1"/>
 		</HorizontalStackLayout>
 	</VerticalStackLayout>
-
 </toolkit:Popup>

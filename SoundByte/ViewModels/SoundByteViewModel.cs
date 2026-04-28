@@ -4,10 +4,11 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace SoundByte.ViewModels;
 
-public partial class SoundByteViewModel : ObservableObject
+public partial class SoundByteViewModel(AppSettingsService settings) : ObservableObject
 {
 	private readonly SoundByteService _service = new();
 	private SoundByteGroupViewModel? _selectedGroup;
+	public AppSettingsService Settings { get; } = settings;
 
 	public ObservableCollection<SoundByteGroupViewModel> Groups { get; } = [];
 

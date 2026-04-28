@@ -16,7 +16,7 @@ public partial class AddSoundbytePopup : Popup<SoundbyteItem?>
 	{
 		if (!string.IsNullOrWhiteSpace(AddSoundbyteNameEntry.Text) && !string.IsNullOrWhiteSpace(AddSoundbyteFilePathEntry.Text))
 		{
-			var item = new SoundbyteItem(AddSoundbyteNameEntry.Text, AddSoundbyteFilePathEntry.Text, (SoundbyteColors)AddSoundbyteColorPicker.SelectedIndex);
+			var item = new SoundbyteItem(AddSoundbyteNameEntry.Text, "AddSoundbyteFilePathEntry.Text", (SoundbyteColors)AddSoundbyteColorPicker.SelectedIndex);
 
 			await CloseAsync(item);
 		}

@@ -6,8 +6,8 @@
     xmlns:local="clr-namespace:SoundByte"
     Title="SoundByte">
 
-    <ShellContent
-        Title="Home"
+	<ShellContent
+        Title="Soundbyte"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 

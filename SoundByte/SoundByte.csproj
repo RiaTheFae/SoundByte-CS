@@ -76,11 +76,17 @@
 		<Compile Update="Views\AddSoundbytePopup.xaml.cs">
 			<DependentUpon>AddSoundbytePopup.xaml</DependentUpon>
 		</Compile>
+		<Compile Update="Views\OptionsPage.xaml.cs">
+		  <DependentUpon>OptionsPage.xaml</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
 		<MauiXaml Update="Views\AddSoundbytePopup.xaml">
 			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\OptionsPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 	</ItemGroup>
 
